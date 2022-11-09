@@ -2,22 +2,12 @@ name: build
 on: push
 
 jobs:
-  format:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Run black formatter
-        uses: rickstaa/action-black@v1.1.14
-
-
-jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -34,15 +24,18 @@ jobs:
       - name: Run test suite
         run: |
           pipenv run pytest
-
-jobs:
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Run black formatter
+        uses: rickstaa/action-black@v1.1.14
   coverage:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
